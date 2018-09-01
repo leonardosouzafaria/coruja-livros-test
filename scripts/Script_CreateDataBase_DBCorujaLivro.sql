@@ -24,9 +24,9 @@ CREATE TABLE Livros (
         REFERENCES Autores (codAutor)
 );
 
-CREATE TABLE Estantes (
-    codEstante INT PRIMARY KEY NOT NULL AUTO_INCREMENT,
-    codLivro INT NOT NULL,
+CREATE TABLE Estoque (
+    codEstoque INT PRIMARY KEY NOT NULL AUTO_INCREMENT,
+    codLivro INT NOT NULL UNIQUE,
     qtdLivros INT NOT NULL,
     CONSTRAINT FK_codLivro_Estantes FOREIGN KEY (codLivro)
         REFERENCES Livros (codLivro)
