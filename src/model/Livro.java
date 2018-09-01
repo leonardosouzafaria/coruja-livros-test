@@ -3,7 +3,6 @@ package model;
 public class Livro {
 	// atributos
 	private int codigoLivro;
-	private int codigoTema;
 	private String titulo;
 	private int quantidadePaginas;
 	private Autor autor;
@@ -19,11 +18,13 @@ public class Livro {
 	}
 
 	// construtor completo
-	public Livro(int codigoLivro, int codigoTema, int codigoAutor, String titulo, int quantidadePaginas) {
-		setCodigoLivro(codigoLivro);
-		setCodigoTema(codigoTema);
+	public Livro(Tema tema, Autor autor, String titulo, int quantidadePaginas) {
+		
+		setTema(tema);
+		setAutor(autor);
 		setTitulo(titulo);
-		setQuantidadePaginas(quantidadePaginas);
+		setQuantidadePaginas(quantidadePaginas);	
+		
 	}
 
 	// métodos de acesso e métodos modificadores
@@ -35,12 +36,12 @@ public class Livro {
 		this.codigoLivro = codigoLivro;
 	}
 
-	public int getCodigoTema() {
-		return codigoTema;
+	public Tema getTema() {
+		return this.tema;
 	}
 
-	public void setCodigoTema(int codigoTema) {
-		this.codigoTema = codigoTema;
+	public void setTema(Tema tema) {
+		this.tema = tema;
 	}	
 
 	public String getTitulo() {

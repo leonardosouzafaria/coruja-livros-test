@@ -1,11 +1,12 @@
 package model;
 
-public class Estante {
+public class Estoque {
 	
+	private int codigoEstoque;
 	private Livro livro;
 	private int quantidadeLivros;
 	
-	public Estante() {
+	public Estoque() {
 		
 	}
 
@@ -23,6 +24,14 @@ public class Estante {
 
 	public void setQuantidadeLivros(int quantidadeLivros) {
 		this.quantidadeLivros = quantidadeLivros;
+	}
+	
+	public int getCodigoEstoque() {
+		return codigoEstoque;
+	}
+	
+	public void setCodigoEstoque(int codigoEstoque) {
+		this.codigoEstoque = codigoEstoque;
 	}
 	
 	

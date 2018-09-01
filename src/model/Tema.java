@@ -5,11 +5,12 @@ public class Tema {
 	private int codigoTema;
 	private String tema;
 	
-	public Tema(int codigoTema, String tema) {
-		
+	public Tema(int codigoTema) {
 		setCodigoTema(codigoTema);
-		setTema(tema);
-		
+	}
+	
+	public Tema(String tema) {
+		setTema(tema);		
 	}
 
 	//Metodos de acesso Get/Set
