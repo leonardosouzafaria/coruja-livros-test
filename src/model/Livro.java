@@ -7,15 +7,12 @@ public class Livro {
 	private int codigoAutor;
 	private String titulo;
 	private int quantidadePaginas;
-	
 	//construtor padrão
 	public Livro() { }
-	
 	//construtor apenas com id
 	public Livro(int codigoLivro) {
 		setCodigoLivro(codigoLivro);
 	}
-	
 	//construtor completo
 	public Livro(int codigoLivro, int codigoTema, int codigoAutor, String titulo, int quantidadePaginas) {
 		setCodigoLivro(codigoLivro);
@@ -24,7 +21,6 @@ public class Livro {
 		setTitulo(titulo);
 		setQuantidadePaginas(quantidadePaginas);
 	}
-	
 	//métodos de acesso e métodos modificadores
 	public int getCodigoLivro() {
 		return codigoLivro;
