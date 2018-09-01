@@ -4,7 +4,7 @@ public class Livro {
 	// atributos
 	private int codigoLivro;
 	private int codigoTema;
-	private int codigoAutor;
+	private Autor autor;
 	private String titulo;
 	private int quantidadePaginas;
 
@@ -21,7 +21,6 @@ public class Livro {
 	public Livro(int codigoLivro, int codigoTema, int codigoAutor, String titulo, int quantidadePaginas) {
 		setCodigoLivro(codigoLivro);
 		setCodigoTema(codigoTema);
-		setCodigoAutor(codigoAutor);
 		setTitulo(titulo);
 		setQuantidadePaginas(quantidadePaginas);
 	}
@@ -41,15 +40,7 @@ public class Livro {
 
 	public void setCodigoTema(int codigoTema) {
 		this.codigoTema = codigoTema;
-	}
-
-	public int getCodigoAutor() {
-		return codigoAutor;
-	}
-
-	public void setCodigoAutor(int codigoAutor) {
-		this.codigoAutor = codigoAutor;
-	}
+	}	
 
 	public String getTitulo() {
 		return titulo;
@@ -65,5 +56,13 @@ public class Livro {
 
 	public void setQuantidadePaginas(int quantidadePaginas) {
 		this.quantidadePaginas = quantidadePaginas;
+	}
+	
+	public Autor getAutor() {
+		return this.autor;
+	}
+	
+	public void setAutor(Autor autor) {
+		this.autor = autor;
 	}
 }
