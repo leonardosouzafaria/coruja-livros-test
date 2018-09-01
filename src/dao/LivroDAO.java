@@ -2,49 +2,57 @@ package dao;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 
 import factory.ConnectionFactory;
+import model.Autor;
 import model.Livro;
+import model.Tema;
 
 public class LivroDAO {
 	// métodos de persistencias
 	// insert
-	public void inserir(Livro livro) {
+	public static void inserir(Livro livro) {
 		String sql = "INSERT INTO Livros(codTema, codAutor, titulo, qtdPaginas) VALUES(?,?,?,?)";
 		try (Connection conn = ConnectionFactory.abrirConexao(); PreparedStatement stm = conn.prepareStatement(sql);) {
-			stm.setInt(1, livro.getTema().getCodigotema());
+			stm.setInt(1, livro.getTema().getCodigoTema());
 			stm.setInt(2, livro.getAutor().getCodigoAutor());
 			stm.setString(3, livro.getTitulo());
 			stm.setInt(4, livro.getQuantidadePaginas());
+			stm.execute();
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
 	}
 
 	// update
-	public boolean alterar(Livro livro) {
-		String sql = "UPDATE Livro SET codTema = ?, codAutor = ?, titulo = ?, qtdPaginas = ? WHERE codigoLivro = ?";
+	public static boolean alterar(Livro livro) {
+		String sql = "UPDATE Livros SET codTema = ?, codAutor = ?, titulo = ?, qtdPaginas = ? WHERE codLivro = ?";
 		try (Connection conn = ConnectionFactory.abrirConexao(); PreparedStatement stm = conn.prepareStatement(sql)) {
-			stm.setInt(1, livro.getTema().getCodigotema());
+			stm.setInt(1, livro.getTema().getCodigoTema());
 			stm.setInt(2, livro.getAutor().getCodigoAutor());
 			stm.setString(3, livro.getTitulo());
 			stm.setInt(4, livro.getQuantidadePaginas());
-			try {
-				
-			}catch() {
-				
+			stm.setInt(5, livro.getCodigoLivro());
+			if (stm.execute()) {
+				return true;
+			} else {
+				return false;
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
+		return false;
 	}
 
 	// delete
-	public boolean excluir(Livro livro) {
-		String sql = "DELETE FROM Livro WHERE codigoLivro = ?";
+	public static boolean excluir(Livro livro) {
+		String sql = "DELETE FROM Livros WHERE codLivro = ?";
 		try (Connection conn = ConnectionFactory.abrirConexao(); PreparedStatement stm = conn.prepareStatement(sql)) {
-
+			stm.setInt(1, livro.getCodigoLivro());
+			stm.execute();
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
@@ -52,10 +60,22 @@ public class LivroDAO {
 	}
 
 	// carregar registro único
-	public Livro carregar(Livro livro) {
-		String sql = "SELECT * FROM Livro WHERE codigoLivro = ?";
+	public static Livro carregar(Livro livro) {
+		String sql = "SELECT * FROM Livros WHERE codLivro = ?";
 		try (Connection conn = ConnectionFactory.abrirConexao(); PreparedStatement stm = conn.prepareStatement(sql)) {
 			stm.setInt(1, livro.getCodigoLivro());
+			try (ResultSet rs = stm.executeQuery()) {
+				if (rs.next()) {
+					livro.setTitulo(rs.getString("titulo"));
+					livro.setAutor(new Autor(rs.getInt("codAutor")));
+					livro.setQuantidadePaginas(rs.getInt("qtdPaginas"));
+					livro.setTema(new Tema(rs.getInt("codTema")));
+				} else {
+					livro = null;
+				}
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
@@ -63,14 +83,26 @@ public class LivroDAO {
 	}
 
 	// carregar todos os registros
-	public Livro carregar() {
-		String sql = "SELECT * FROM Livro";
-		Livro livro = null;
+	public static ArrayList<Livro> carregar() {
+		String sql = "SELECT * FROM Livros";
+		ArrayList<Livro> livros = new ArrayList<>();
+		;
 		try (Connection conn = ConnectionFactory.abrirConexao(); PreparedStatement stm = conn.prepareStatement(sql)) {
-
+			try (ResultSet rs = stm.executeQuery()) {
+				while (rs.next()) {
+					Livro livro = new Livro(rs.getInt("codLivro"));
+					livro.setAutor(new Autor(rs.getInt("codAutor")));
+					livro.setTema(new Tema(rs.getInt("codTema")));
+					livro.setQuantidadePaginas(rs.getInt("qtdPaginas"));
+					livro.setTitulo(rs.getString("titulo"));
+					livros.add(livro);
+				}
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
-		return livro;
+		return livros;
 	}
 }
