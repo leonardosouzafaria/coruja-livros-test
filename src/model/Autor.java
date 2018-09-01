@@ -3,10 +3,15 @@ package model;
 public class Autor {
 	private int codigoAutor;
 	private String nome;
-
+	
+	
+	//Contrutor com id 
+	public Autor (int codigoAutor) {
+		setCodigoAutor(codigoAutor);
+	}
+	
 	// Contrutor completo autor
 	public Autor(int codigoAutor, String nome) {
-		setCodigoAutor(codigoAutor);
 		setNome(nome);
 	}
 
