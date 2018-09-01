@@ -4,9 +4,10 @@ public class Livro {
 	// atributos
 	private int codigoLivro;
 	private int codigoTema;
-	private Autor autor;
 	private String titulo;
 	private int quantidadePaginas;
+	private Autor autor;
+	private Tema tema;
 
 	// construtor padrão
 		//public Livro() {
